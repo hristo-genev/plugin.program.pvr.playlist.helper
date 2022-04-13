@@ -1,6 +1,6 @@
 ### What is this Kodi "PVR Playlist Helper" addon about? 
 
-The PVR Playlist Helper Kodi addon does the following:
+The addon simply does the following:
 1. Automatically (on schedule) downloads M3U files from local drive or from remote URL resource and serves it locally.
 2. Raplaces dynamic stream URLs with static, which helps the Kodi TV Channel's manager to remember the changes done on any channel. 
 3. Allows modifications of any stream property
