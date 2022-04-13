@@ -1,4 +1,4 @@
-### What is addon about? 
+### What is this Kodi "PVR Playlist Helper" addon about? 
 
 The PVR Playlist Helper Kodi addon does the following:
 1. Allows you to modify any property of any stream in a given playlist.
