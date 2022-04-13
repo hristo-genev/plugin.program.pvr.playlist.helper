@@ -1,0 +1,116 @@
+{
+  "БНТ 1 HD": {
+    "tvg-group": "BG"
+  },
+  "bTV HD" : {
+    "tvg-group": "BG"
+  },
+  "Нова HD" : {
+    "tvg-group": "BG"
+  },
+  "Евроком HD" : {
+    "tvg-group": "BG"
+  },
+  "Bulgaria on Air" : {
+    "tvg-group": "BG"
+  },  
+  "Diema Sport HD" : {
+    "tvg-group": "Sport"
+  },
+  "Diema Sport 2 HD" : {
+    "tvg-group": "Sport"
+  },
+  "Diema Sport 3 HD" : {
+    "tvg-group": "Sport"
+  },
+  "Max Sport 1 HD" : {
+    "tvg-group": "Sport"
+  },
+  "Max Sport 2 HD" : {
+    "tvg-group": "Sport"
+  },
+  "Max Sport 3 HD" : {
+    "tvg-group": "Sport"
+  },
+  "Max Sport 4 HD" : {
+    "tvg-group": "Sport"
+  },
+  "bTV Action HD" : {
+    "tvg-group": "Sport"
+  },
+  "RING BG HD" : {
+    "tvg-group": "Sport"
+  },
+  "Eurosport HD" : {
+    "tvg-group": "Sport"
+  },
+  "Eurosport 2 HD" : {
+    "tvg-group": "Sport"
+  },
+  "Sportal HD" : {
+    "tvg-group": "Sport"
+  },
+  "Viasat History HD" : {
+    "tvg-group": "BG"
+  },
+  "Viasat Explore HD" : {
+    "tvg-group": "BG"
+  },
+  "Travel Channel HD" : {
+    "tvg-group": "BG"
+  },
+  "NatGeo HD" : {
+    "tvg-group": "BG"
+  },
+  "NatGeo Wild HD" : {
+    "tvg-group": "BG"
+  },
+  "Discovery HD" : {
+    "tvg-group": "BG"
+  },
+  "HBO HD" : {
+    "tvg-group": "Movies"
+  },
+  "HBO 2 HD" : {
+    "tvg-group": "Movies"
+  },
+  "HBO 3 HD" : {
+    "tvg-group": "Movies"
+  },
+  "Moviestar HD" : {
+    "tvg-group": "Movies"
+  },
+  "bTV Cinema HD" : {
+    "tvg-group": "Movies"
+  },
+  "KinoNova" : {
+    "tvg-group": "Movies"
+  },
+  "AXN" : {
+    "tvg-group": "Movies"
+  },
+  "AXN White" : {
+    "tvg-group": "Movies"
+  },
+  "AXN Black" : {
+    "tvg-group": "Movies"
+  },
+  "Cinemania HD" : {
+    "tvg-group": "Movies"
+  },
+  "Nostalgia HD" : {
+    "tvg-group": "Movies"
+  },
+  "Epic Drama HD" : {
+    "tvg-group": "Movies"
+  },
+  "FOX HD" : {
+    "tvg-group": "Movies"
+  },
+  "FOX Crime HD" : {
+    "tvg-group": "Movies"
+  },
+  "FOX Life HD" : {
+    "tvg-group": "Movies"
+  }
+}
