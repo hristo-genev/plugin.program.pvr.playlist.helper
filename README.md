@@ -1,10 +1,11 @@
 ### What is this Kodi "PVR Playlist Helper" addon about? 
 
 The PVR Playlist Helper Kodi addon does the following:
-1. Allows you to modify any property of any stream in a given playlist.
+1. Automatically (on schedule) downloads M3U files from local drive or from remote URL resource and serves it locally.
 2. Raplaces dynamic stream URLs with static, which helps the Kodi TV Channel's manager to remember the changes done on any channel. 
-3. Reorder streams
-4. Disable streams 
+3. Allows modifications of any stream property
+4. Reorder streams
+5. Disable streams 
 
 ### How to install
 
