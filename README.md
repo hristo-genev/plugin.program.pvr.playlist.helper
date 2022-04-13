@@ -20,7 +20,10 @@ becomes:
 
 `#EXTINF:-1 tvg-id="channel.1.id" group-title="National",Channel 1`
 
-As a result
+
+Dynamic stream URLs are changed to static ones and servered from a small HTTP server which redirects to the original stream. 
+This helps Kodi TV Manager remembers any changes you do to any stream/channels. 
+As a result of the modification, stream URL like this:
 
 `http://cdn.streaming.server.com/stream/55432A32F12CC19B`
 
