@@ -14,7 +14,7 @@ current_file_dir = Path(__file__).resolve()
 class Tests(unittest.TestCase):
     
   ####################
-  ### stream tests ###
+  ### Stream tests ###
   ####################
 
   def test_parse_line(self):
@@ -69,15 +69,29 @@ class Tests(unittest.TestCase):
     self.assertTrue('ch-order="7' in stream_as_string)
     self.assertTrue('catchup-source="http://url?lutc=${timestamp}"' in stream_as_string)
 
+
+  def test_to_string_with_modified_order(self):
+    '''
+      Tests if stream.to_string method changes the ch-order and tvg-chno attributes when order is true
+    '''
+    stream = Stream()
+    stream.name = "Channel 1"
+    stream.properties['tvg-chno'] = '7'
+    stream.properties['ch-order'] = '7'
+    stream.set_order(1)
+
+    _stream_as_string = stream.to_string()
+    
+    self.assertTrue('tvg-chno="1"' in _stream_as_string)
+    self.assertTrue('ch-order="1"' in _stream_as_string)
+
     
   def test_parse_line_with_values_with_spaces(self):
     '''
       Property values with spaces should be parsed no issues
     '''
     stream = Stream(
-      reorder=True
-      , ordinal=1
-      #, log_delegate=print
+      #log_delegate=print
       )
     stream.parse('#EXTINF:-1 group-title="Low bandwidth" , Channel 1 +24 HD')
 
@@ -116,21 +130,6 @@ class Tests(unittest.TestCase):
     self.assertEqual(stream.properties['tvg-id'], "tivi.222")
     self.assertEqual(stream.properties['group-title'], "information")
     self.assertEqual(stream.properties['tvg-chno'], '1')
-
-
-  def test_stream_order_replaces_value(self):
-    '''
-      Stream tvg-chno is replaced with a value
-    '''
-    stream = Stream()
-    stream.name = "Channel 1"
-    stream.properties['tvg-chno'] = '7'
-    stream.order = 1
-
-    self.assertTrue('tvg-chno="1"' in stream.to_string())
-
-
-
 
 
   # ############################
@@ -178,7 +177,7 @@ class Tests(unittest.TestCase):
 
 
   # ############################
-  # ###   StreamsMamp Tests  ###
+  # ###   StreamsMap Tests  ###
   # ############################
   
   def test_streams_map_load_from_file(self):

@@ -4,8 +4,9 @@ import requests
 class StreamsMap:
     
     def __init__(self, **kwargs):
-        self.__path = kwargs.get('path', None)
         self.__log_delegate = kwargs.get('log_delegate', None)
+        self.__log('Creating StreamsMap object')
+        self.__path = kwargs.get('path', None)
         self.__map = kwargs.get('map', {})
         if self.__path:
             self.load_map(self.__path)
@@ -38,6 +39,7 @@ class StreamsMap:
         '''
         Downloads or open and parse the streams map file.
         '''
+        self.__log('Loading map from location: %s' % map_location)
         try:
             if 'http' in map_location or 'ftp' in map_location:
                 self.__map = self.__download_map(map_location)
@@ -66,6 +68,7 @@ class StreamsMap:
     
     def __calculate_streams_order(self):
         '''
+        Assign an order property to each map item
         '''
         for i, stream_details in enumerate(self.__map.values()):
             stream_details['order'] = i + 1

@@ -3,8 +3,8 @@ import os
 import sys
 from xbmc import executebuiltin
 from xbmcgui import DialogProgressBG
-from resources.lib.utils import RUNSCRIPT, STREAM_URL, get_m3u_location, get_map_location, pl_path, pl_name, log_info, log_error
-from resources.lib.logging import log
+from resources.lib.utils import RUNSCRIPT, STREAM_URL, get_m3u_location, get_map_location, pl_path, pl_name, log, log_info, log_error
+# from resources.lib.logging import log
 from resources.lib.settings import settings 
 from resources.lib.utils import addon, resource_path, profile_path, get_last_exception
 from resources.lib.notifications import notify_error
@@ -17,6 +17,7 @@ mapping_file  = os.path.join( resource_path, 'mapping.json' )
 progress_bar  = None
 
 log_info("Addon running on: %s" % user_agent)
+
 if scheduled_run:
   log_info('Automatic playlist generation')
   

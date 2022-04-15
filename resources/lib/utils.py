@@ -3,18 +3,10 @@ import os
 import json
 import xbmc
 import time
-import xbmcvfs
-import xbmcaddon
 from .settings import settings 
-from .logging import log_info, log_error, log_last_exception
+from .addon import *
+from .logging import log, log_info, log_error, log_last_exception
 
-id            = 'plugin.program.tvbgpvr.backend'
-addon         = xbmcaddon.Addon()
-addon_version = addon.getAddonInfo('version')
-addon_name    = addon.getAddonInfo('name')
-profile_path  = xbmcvfs.translatePath(addon.getAddonInfo('profile'))
-addon_path    = xbmcvfs.translatePath(addon.getAddonInfo('path'))
-resource_path = xbmcvfs.translatePath(os.path.join(addon_path, 'resources'))
 pl_cache      = os.path.join(profile_path, ".cache")
 pl_streams    = os.path.join(profile_path, ".streams")
 pl_name       = 'playlist.m3u'
@@ -39,7 +31,6 @@ def get_m3u_location():
   '''
   '''
   m3u_location = settings.m3u_path if settings.m3u_path_type == 0 else settings.m3u_url
-  log_info("Using m3u from: %s" % m3u_location)
   return m3u_location
   
 
@@ -47,7 +38,6 @@ def get_map_location():
   '''
   '''
   map_location = settings.map_path if settings.map_path_type == 0 else settings.map_url
-  log_info("Using map from: %s" % map_location)
   return map_location
   
   

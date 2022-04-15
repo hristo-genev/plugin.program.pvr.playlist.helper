@@ -20,7 +20,7 @@ class PlaylistParser:
     
     
   def parse(self, lines):
-    '''
+    ''' 
       Parse m3u file line by line. Usually the stream information is spread accross multiple lines.
       First is #EXTINF, then maybe #EXTSIZE and others and the last line contains the stream URL.
       So we create a stream object and add the extracted stream details. Then we add the stream to an exisiting or a new channel.
@@ -43,7 +43,7 @@ class PlaylistParser:
           continue
         stream.url = line
         self.extracted_streams.append(stream)
-        self.__log("Adding stream to playlist %s" % stream.to_string())
+        self.__log("Adding stream to playlist %s" % stream.name)
 
     self.__log("PlaylistParser.parse() ended")
     
@@ -54,9 +54,7 @@ class PlaylistParser:
     '''
     try:
       stream = Stream(
-        log=self.__log, 
-        reorder=True, 
-        ordinal=len(self.extracted_streams)
+        log_delegate=self.__log
       )
       stream.parse(line)
       return stream

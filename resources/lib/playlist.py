@@ -200,21 +200,25 @@ class Playlist:
       Reorders channels in the playlist
     '''
     self.__log("reorder() started") 
+    if map:
+      self.__streams_info_map = map
+    self.__assign_stream_order_from_map()
+    self.streams = sorted(self.streams, key=lambda stream:int(stream.properties['ch-order']))    
+    self.__log("reorder() ended")
+
+
+  def __assign_stream_order_from_map(self):
+    '''
+    Asigns each stream a 'ch-order' property as per the map
+    '''
     percent = 95
     max = 3
     step = round(len(self.streams)/max)    
-    self.__progress(percent, "Reordering playlist as per map:")
-
-    if map:
-      self.__streams_info_map = map
-
+    self.__progress(percent, "Reordering playlist")
     for i, stream in enumerate(self.streams):
       if i % step == 0: 
         percent += 1
-      stream.order = self.__streams_info_map.get_stream_order(stream.name, i)
-
-    self.streams = sorted(self.streams, key=lambda stream:int(stream.order))
-    self.__log("reorder() ended")
+      stream.set_order(self.__streams_info_map.get_stream_order(stream.name, i))
 
 
   def add(self, new_m3u_location):

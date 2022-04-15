@@ -15,10 +15,8 @@ class Stream:
     self.name           = kwargs.get('name', None)
     self.properties     = kwargs.get('properties', {})
     self.url            = kwargs.get('url', None)
-    self.order          = kwargs.get('order', None)
     self.disabled       = False
-    self._log_delegate  = kwargs.get('log', None)
-    self._reorder       = kwargs.get('reorder', False)
+    self._log_delegate  = kwargs.get('log_delegate', None)
     self._ordinal       = kwargs.get('ordinal', -1)
     self._line          = None
 
@@ -83,6 +81,14 @@ class Stream:
       self.__log('Extracted property %s with value %s' % (valuepair[0], self.properties[valuepair[0]]))
 
 
+  def set_order(self, order):
+    '''
+    '''
+    self.__log('Setting order of stream %s to %s' % (self.name, order))
+    self.properties['tvg-chno'] = order
+    self.properties['ch-order'] = order
+        
+
   def to_string(self, type=PlaylistType.KODIPVR):
     '''
       Exports the stream to string, that is 2 lines - the #EXTINFO line and the stream URL line 
@@ -91,10 +97,13 @@ class Stream:
     
     if type is not PlaylistType.PLAIN:
       for key in self.properties:
-        if key.lower() == 'tvg-chno' and self.order:
-          self.properties[key] = self.order
+        # _key = key.lower()       
+        # if _key == 'order':
+        #   continue 
+        # if self._reorder and self.order and (_key == 'tvg-chno' or _key == 'ch-order'):
+        #   self.properties[key] = self.order
         buffer += ' %s="%s"'  % (key, self.properties[key])
-      
+        
     buffer += ',%s\n%s\n' % (self.name, self.url)
     # self.__log("%s" % buffer)
     return buffer

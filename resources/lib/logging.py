@@ -1,16 +1,14 @@
 import xbmc
-from .utils import *
+from .addon import *
 
-def log(msg, level=xbmc.LOGDEBUG):
+def log(msg, level=xbmc.LOGINFO):
   try:
-    if settings.debug and level == xbmc.LOGDEBUG:
-      level = xbmc.LOGINFO
-    xbmc.log("%s v%s | %s" % (id, addon_version, str(msg)), level)
-  except:
-    pass
+    xbmc.log("%s v%s | %s" % (id, addon_version, msg), level)
+  except Exception as ex:
+    xbmc.log(ex)
 
 
-def log_info(msg):
+def log_info(msg,):
   log(msg, xbmc.LOGINFO)
 
 
