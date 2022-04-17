@@ -10,7 +10,8 @@ class StreamsMap:
         self.__map = kwargs.get('map', {})
         if self.__path:
             self.load_map(self.__path)
-        self.__calculate_streams_order()
+        if self.__map is not {}:
+            self.__calculate_streams_order()
         
 
     def get_stream_info(self, stream_name):
@@ -25,7 +26,7 @@ class StreamsMap:
         Returns the order of a stream if present, else the current_index plus the length of all streams
         '''
         stream_info = self.__map.get(stream_name, {})
-        order = stream_info.get('order', None)
+        order = stream_info.get('ch-order', None)
         if order is not None:
             self.__log('Setting order of stream %s to %s' % (stream_name, order))
             return order
@@ -71,7 +72,7 @@ class StreamsMap:
         Assign an order property to each map item
         '''
         for i, stream_details in enumerate(self.__map.values()):
-            stream_details['order'] = i + 1
+            stream_details['ch-order'] = i + 1
 
 
     def __log(self, msg):

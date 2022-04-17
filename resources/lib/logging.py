@@ -18,3 +18,8 @@ def log_error(msg):
 
 def log_last_exception():
   log_error(get_last_exception())
+  
+  
+def get_last_exception():
+  import sys, traceback
+  traceback.format_exc(sys.exc_info())

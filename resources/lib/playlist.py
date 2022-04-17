@@ -2,8 +2,8 @@
 import os
 import sys
 import json
-import urllib.request, urllib.parse, urllib.error
 import requests
+import urllib.request, urllib.parse, urllib.error
 from .m3u_parser import PlaylistParser
 from .enums import StreamQuality, PlaylistType
 from .map import StreamsMap
@@ -166,9 +166,9 @@ class Playlist:
       self.__log("__parse() started")
       parser = PlaylistParser(
         size = self.size,
-        streams_map = self.__streams_info_map,
-        log = self.__log,
-        progress = self._progress_delegate
+        log_delegate = self.__log,
+        progress_delegate = self._progress_delegate,
+        progress_max_value = 80
       )
       parser.parse(file_content)
       self.streams = parser.extracted_streams
@@ -181,7 +181,7 @@ class Playlist:
     Serializes streams dict into a file so it can be used later
     '''
     self.__log("__serialize() started")
-    self.__progress(10, "Serializing streams")
+    self.__progress(80, "Serializing streams")
     _streams = {}
     
     for stream in self.streams:
@@ -197,7 +197,7 @@ class Playlist:
     
   def reorder(self, map=None):
     ''' 
-      Reorders channels in the playlist
+    Reorders channels in the playlist
     '''
     self.__log("reorder() started") 
     if map:

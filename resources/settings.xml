@@ -108,7 +108,7 @@
           </dependencies>
           <control type="edit" format="string" />
         </setting>
-        <setting id="order" type="boolean" label="30023" help="30024">
+        <setting id="reorder_playlist" type="boolean" label="30023" help="30024">
           <level>0</level>
           <default>true</default>
           <control type="toggle" />

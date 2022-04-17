@@ -11,8 +11,8 @@ class PlaylistParser:
     '''
     '''
     self.extracted_streams = []
-    self._log_delegate = kwargs.get('log', None)
-    self._progress_delegate = kwargs.get('progress', None)
+    self._log_delegate = kwargs.get('log_delegate', None)
+    self._progress_delegate = kwargs.get('progress_delegate', None)
     self._current_progress = kwargs.get('progress_init_value', 10)
     max_percent = kwargs.get('progress_max_value', 80)
     lines_count = kwargs.get('size', 0)

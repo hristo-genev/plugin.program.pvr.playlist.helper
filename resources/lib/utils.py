@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
+import sys
 import json
 import xbmc
 import time
 from .settings import settings 
 from .addon import *
-from .logging import log, log_info, log_error, log_last_exception
+from .logging import log_info, log_error, log_last_exception
 
 pl_cache      = os.path.join(profile_path, ".cache")
 pl_streams    = os.path.join(profile_path, ".streams")
@@ -26,6 +27,25 @@ def show_progress(progress_bar, percent, msg):
     progress_bar.update(percent, str(msg))
     log_info(msg)
     
+    
+def get_user_agent():
+  user_agent = 'Kodi %s, %s:%s' % (get_kodi_build(), id, addon_version)
+  log_info("Addon running on: %s" % user_agent)
+  return user_agent
+
+
+def get_kodi_build():
+  try:
+    return xbmc.getInfoLabel("System.BuildVersion")
+  except Exception:
+    return "Unknown"
+  
+  
+def is_scheduled_run():
+  scheduled_run = len(sys.argv) > 1 and sys.argv[1] == str(True)  
+  if scheduled_run:
+    log_info('Automatic playlist generation')
+  return scheduled_run
   
 def get_m3u_location():
   '''
@@ -39,11 +59,6 @@ def get_map_location():
   '''
   map_location = settings.map_path if settings.map_path_type == 0 else settings.map_url
   return map_location
-  
-  
-def get_last_exception():
-  import sys, traceback
-  traceback.format_exc(sys.exc_info())
 
 
 def get_stream_url(name):
@@ -57,6 +72,12 @@ def get_stream_url(name):
   except Exception as er:
     log_last_exception()
     return None
+
+
+def schedule_next_run(interval):
+  log_info('Scheduling next run after %s minutes' % interval)  
+  command = "AlarmClock('ScheduledReload', %s, %s, silent)" % (RUNSCRIPT, interval)
+  xbmc.executebuiltin(command)
 
 
 def __update__(action, location, crash=None):
