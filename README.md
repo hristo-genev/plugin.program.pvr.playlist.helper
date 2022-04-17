@@ -6,6 +6,7 @@ The addon simply does the following:
 3. Allows modifications of any stream property
 4. Reorder streams
 5. Disable streams 
+6. TODO Add and combine up to 2 other playlist 
 
 ### How to install
 
