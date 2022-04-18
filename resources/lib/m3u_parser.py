@@ -1,7 +1,4 @@
-try:
-  from .stream import Stream
-except:
-  from stream import Stream
+from .stream import Stream
   
 class PlaylistParser:
   '''
@@ -13,8 +10,8 @@ class PlaylistParser:
     self.extracted_streams = []
     self._log_delegate = kwargs.get('log_delegate', None)
     self._progress_delegate = kwargs.get('progress_delegate', None)
-    self._current_progress = kwargs.get('progress_init_value', 10)
-    max_percent = kwargs.get('progress_max_value', 80)
+    self._current_progress = kwargs.get('progress_start', 10)
+    max_percent = kwargs.get('progress_end', 80)
     lines_count = kwargs.get('size', 0)
     self._progress_step = round(lines_count/max_percent) if lines_count > 0 else 16
     

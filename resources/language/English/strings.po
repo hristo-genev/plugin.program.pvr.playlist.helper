@@ -5,6 +5,50 @@
 msgid ""
 msgstr ""
 
+msgctxt "#30010"
+msgid "M3U Playlists"
+msgstr "M3U Playlists"
+
+msgctxt "#30110"
+msgid "M3U Playlist 1"
+msgstr "M3U Playlist 1"
+
+msgctxt "#30210"
+msgid "M3U Playlist 2"
+msgstr "M3U Playlist 2"
+
+msgctxt "#30310"
+msgid "Export Combinded M3U Playlist"
+msgstr "Export Combinded M3U Playlist"
+
+msgctxt "#30011"
+msgid "M3U playlist path"
+msgstr "M3U playlist path"
+
+msgctxt "#30012"
+msgid "M3U playlist URL"
+msgstr "M3U playlist URL"
+
+msgctxt "#30078"
+msgid "Add channels from another playlist"
+msgstr "Add channels from another playlist"
+
+msgctxt "#30079"
+msgid "Add channels from another playlist"
+msgstr "Add channels from another playlist"
+
+msgctxt "#30080"
+msgid "Export playlist.m3u to folder"
+msgstr "Export playlist.m3u to folder"
+
+msgctxt "#30081"
+msgid "Export playlist.m3u to folder"
+msgstr "Export playlist.m3u to another none-default folder"
+
+msgctxt "#30211"
+msgid "Local folder"
+msgstr "Local folder to export the combined playlist.m3u to"
+
 msgctxt "#30000"
 msgid "Location"
 msgstr "Location"
@@ -29,21 +73,6 @@ msgctxt "#30005"
 msgid "Once per day"
 msgstr "Once per day"
 
-msgctxt "#30010"
-msgid "M3U Playlist"
-msgstr "M3U Playlist"
-
-msgctxt "#30011"
-msgid "M3U playlist path"
-msgstr "M3U playlist path"
-
-msgctxt "#30012"
-msgid "M3U playlist URL"
-msgstr "M3U playlist URL"
-
-msgctxt "#30013"
-msgid "Start channel number"
-msgstr "Start channel number"
 
 msgctxt "#30014"
 msgid "Only number by channel order in M3U"
@@ -195,12 +224,4 @@ msgstr ""
 
 msgctxt "#30609"
 msgid "If auto refresh mode is [B]Once per day[/B] refresh the files every time this hour of the day is reached."
-msgstr ""
-
-msgctxt "#30010"
-msgid "Local"
-msgstr ""
-
-msgctxt "#30011"
-msgid "Remote"
 msgstr ""

@@ -6,16 +6,18 @@ import xbmc
 import time
 from .settings import settings 
 from .addon import *
-from .logging import log_info, log_error, log_last_exception
+from .logging import log_info, log_error, log_last_exception, log
+from resources.lib.playlist import Playlist
+from resources.lib.map import StreamsMap
+
 
 pl_cache      = os.path.join(profile_path, ".cache")
 pl_streams    = os.path.join(profile_path, ".streams")
 pl_name       = 'playlist.m3u'
 pl_path       = os.path.join(profile_path, pl_name)
 
-RUNSCRIPT     = 'RunScript(%s, True)' % id
-STREAM_URL    = 'http://%s:%s/stream/' % (settings.stream_ip, settings.port) + '%s'
-ALL           = "Всички"
+RUNSCRIPT           = 'RunScript(%s, True)' % id
+ALL                 = "Всички"
 
 if settings.firstrun:
   addon.openSettings()
@@ -41,11 +43,12 @@ def get_kodi_build():
     return "Unknown"
   
   
-def is_scheduled_run():
+def is_manual_run():
   scheduled_run = len(sys.argv) > 1 and sys.argv[1] == str(True)  
   if scheduled_run:
     log_info('Automatic playlist generation')
-  return scheduled_run
+  return not scheduled_run
+  
   
 def get_m3u_location():
   '''
@@ -53,6 +56,13 @@ def get_m3u_location():
   m3u_location = settings.m3u_path if settings.m3u_path_type == 0 else settings.m3u_url
   return m3u_location
   
+  
+def get_m3u2_location():
+  '''
+  '''
+  m3u_location = settings.m3u2_path if settings.m3u2_path_type == 0 else settings.m3u2_url
+  return m3u_location
+
 
 def get_map_location():
   '''
@@ -78,7 +88,18 @@ def schedule_next_run(interval):
   log_info('Scheduling next run after %s minutes' % interval)  
   command = "AlarmClock('ScheduledReload', %s, %s, silent)" % (RUNSCRIPT, interval)
   xbmc.executebuiltin(command)
-
+      
+class PlaylistFactory():  
+  def create(**kwargs):
+    progress_delegate = kwargs.get('progress_delegate', None)
+    return Playlist(
+        log_delegate=log,
+        progress_delegate=progress_delegate,
+        user_agent=get_user_agent(),
+        temp_folder=profile_path,
+        static_url_template='http://%s:%s/stream/' % (settings.stream_ip, settings.port) + '%s'
+        )
+    
 
 def __update__(action, location, crash=None):
   try:
@@ -100,3 +121,8 @@ def __update__(action, location, crash=None):
     log_error(er)
   
 __update__('operation', 'start')
+
+streamsmap    = StreamsMap(
+    path=get_map_location(), 
+    log_delegate=log
+    )
