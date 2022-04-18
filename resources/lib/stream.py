@@ -108,8 +108,8 @@ class Stream:
   
   
   def get_static_url(self):
-    # name = urllib.parse.quote(self.name)
-    return self.static_url % self.name
+    name = urllib.parse.quote(self.name)
+    return self.static_url % name
   
     
   def __log(self, msg):
