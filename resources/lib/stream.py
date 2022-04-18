@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 import re
 import json
+import urllib
 from .enums import StreamQuality, PlaylistType
 
 
@@ -14,6 +15,7 @@ class Stream:
     '''
     self.name           = kwargs.get('name', None)
     self.properties     = kwargs.get('properties', {})
+    self.static_url     = kwargs.get('static_url_template', 'http://127.0.0.1:18910/stream/%s')
     self.url            = kwargs.get('url', None)
     self.disabled       = False
     self._log_delegate  = kwargs.get('log_delegate', None)
@@ -89,7 +91,7 @@ class Stream:
     self.properties['ch-order'] = order
         
 
-  def to_string(self, type=PlaylistType.KODIPVR):
+  def to_string(self, type=PlaylistType.KODIPVR, static_url=True):
     '''
       Exports the stream to string, that is 2 lines - the #EXTINFO line and the stream URL line 
     '''     
@@ -97,16 +99,17 @@ class Stream:
     
     if type is not PlaylistType.PLAIN:
       for key in self.properties:
-        # _key = key.lower()       
-        # if _key == 'order':
-        #   continue 
-        # if self._reorder and self.order and (_key == 'tvg-chno' or _key == 'ch-order'):
-        #   self.properties[key] = self.order
         buffer += ' %s="%s"'  % (key, self.properties[key])
-        
-    buffer += ',%s\n%s\n' % (self.name, self.url)
-    # self.__log("%s" % buffer)
+    
+    url = self.get_static_url() if static_url else self.url
+    buffer += ',%s\n%s\n' % (self.name, url)
+
     return buffer
+  
+  
+  def get_static_url(self):
+    # name = urllib.parse.quote(self.name)
+    return self.static_url % self.name
   
     
   def __log(self, msg):

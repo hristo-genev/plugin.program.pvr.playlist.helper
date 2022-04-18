@@ -1,13 +1,11 @@
 # -*- coding: utf8 -*-
 import os
 import sys
-import json
 import requests
-import urllib.request, urllib.parse, urllib.error
 from .m3u_parser import PlaylistParser
 from .enums import PlaylistType
 from .map import StreamsMap
-  
+from .playlist_serializer import PlaylistSerializer
   
 class Playlist:
   
@@ -110,7 +108,6 @@ class Playlist:
   def __parse(self, file_content, size):
     '''
     '''
-    # with open(file_path, "r", encoding="utf8") as file_content:
     self.__log("__parse() started")
     
     parser = PlaylistParser(
@@ -132,26 +129,6 @@ class Playlist:
       i += 1
     return i
 
-    
-  def __serialize(self):
-    '''
-    Serializes streams dict into a file so it can be used later
-    '''
-    self.__log("__serialize() started")
-    self.__progress(80, "Serializing streams")
-    _streams = {}
-    
-    for stream in self.streams:
-      _streams[stream.name] = stream.url
-      
-    self.__log("serializing %s streams in %s" % (len(_streams), self._streams_file))
-    
-    with open(self._streams_file, "w", encoding="utf8") as w:
-      w.write(json.dumps(_streams, ensure_ascii=False))
-      
-    self.__log("__serialize() ended")
-
-    
   
   def overwrite_values(self, map=None, remove_unmapped_streams=False):
     '''
@@ -221,7 +198,7 @@ class Playlist:
     self.__progress(98, "Saving playlist. Type: %s" % type.name)
     
     buffer = '#EXTM3U\n'
-    percent = 0
+    # percent = 0
     n = len(self.streams)
     # step = round(n/100)
     enabled_streams = 0
@@ -240,18 +217,8 @@ class Playlist:
     self.__log("__to_string() returned %s streams" % enabled_streams)
     return buffer
     
-   
-  def __set_static_stream_urls(self):
-    '''
-    Replaces all stream urls with static ones
-    That point to our proxy server
-    '''
-    for stream in self.streams:
-      name = urllib.parse.quote(stream.name)
-      stream.url = self._static_url_template % (name)
-
     
-  def save(self, file_path, ouput_type = None):
+  def save(self, folder_path, ouput_type = None):
     '''
     Saves current playlist into a file
     Kwargs:
@@ -263,15 +230,15 @@ class Playlist:
     '''
     
     self.__serialize()
-    self.__set_static_stream_urls()
 
-    if not file_path:
+    if not folder_path:
       raise Exception('No path provided to save the playlist')
 
     if not ouput_type:
       ouput_type = self._type
       
     try:
+      file_path = os.path.join(folder_path, self.name)
       with open(file_path, 'w', encoding="utf8") as file:
         self.__log("Saving playlist type %s in %s " % (self._type, file_path))
         file.write(self.__to_string(self._type))        
@@ -281,7 +248,22 @@ class Playlist:
       self.__log_exception()
       return False
 
+    
+  def __serialize(self):
+    '''
+    Serializes streams dict into a file so it can be used later
+    '''
+    self.__log("__serialize() started")
+    self.__progress(80, "Serializing streams")
+          
+    PlaylistSerializer(
+      self._temp_folder,
+      log_delegate=self.__log
+      ).serialize(self.streams)
 
+    self.__log("__serialize() ended")
+
+    
   def __log(self, msg):
     if self._log_delegate:
       self._log_delegate(msg) 

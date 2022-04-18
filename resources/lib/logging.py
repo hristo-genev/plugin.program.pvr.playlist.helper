@@ -8,7 +8,7 @@ def log(msg, level=xbmc.LOGINFO):
     xbmc.log(ex)
 
 
-def log_info(msg,):
+def log_info(msg):
   log(msg, xbmc.LOGINFO)
 
 

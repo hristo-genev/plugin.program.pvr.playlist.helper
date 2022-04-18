@@ -137,7 +137,7 @@
           <dependencies>
             <dependency type="visible" setting="copy_playlist" operator="is">true</dependency>
           </dependencies>
-          <control type="button" format="file">
+          <control type="button" format="path">
             <heading>1033</heading>
           </control>
         </setting>

@@ -3,13 +3,13 @@ from .utils import *
 from urllib.parse import unquote
 from bottle import route, request, HTTPResponse, default_app
 from .notifications import notify_error
+from .playlist_serializer import PlaylistSerializer
 
 GET  = 'GET'
 HEAD = 'HEAD'
 app  = default_app()
 
 @route('/playlist', method=GET)
-@route('/tvbgpvr.backend/playlist', method=GET)
 def get_playlist():
   '''
     Displays the m3u playlist
@@ -18,6 +18,7 @@ def get_playlist():
   log_error('get_playlist() started')
   body = '#EXTM3U\n'
   try:
+    pl_path = os.path.join(profile_path, 'playlist.m3u')
     with open(pl_path, 'r', encoding='utf8') as file:
       body = file.read() 
       
@@ -37,13 +38,11 @@ def get_playlist():
 
 
 @route('/stream/<name>', method=HEAD)
-@route('/tvbgpvr.backend/stream/<name>', method=HEAD)
 def get_stream(name):
   return HTTPResponse(None, status=200)
 
 
 @route('/stream/<name>', method=GET)
-@route('/tvbgpvr.backend/stream/<name>', method=GET)
 def get_stream(name):
   '''
     Get the m3u stream url
@@ -55,8 +54,13 @@ def get_stream(name):
   log_info("get_stream() started")
 
   try:  
+    streams = PlaylistSerializer(
+      profile_path,
+      # log_delegate=log
+      ).deserialize()
+    
     stream_name = unquote(name)
-    location = get_stream_url(stream_name)
+    location = streams.get(stream_name)
 
     if request.query.get('debug') != None:
       return HTTPResponse(location, status = 200)
@@ -68,8 +72,8 @@ def get_stream(name):
                       
     headers['Location'] = location
 
-  except Exception:
-    return HTTPResponse(get_last_exception(), status=500, **headers)
+  except Exception as ex:
+    return HTTPResponse(ex, status=500, **headers)
     
   log_info("get_stream() ended!")
   return HTTPResponse(body, status = 302, **headers)
